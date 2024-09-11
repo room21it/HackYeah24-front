@@ -1,7 +1,9 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-export const LinkList = ({ children, title }) => {
+import type { LinkListProps } from './types'
+
+export const LinkList = ({ children, title }: LinkListProps) => {
   return (
     <Box
       sx={{
