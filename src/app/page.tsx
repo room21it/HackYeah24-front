@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Hero from "~/components/Hero";
+import TibiaUsers from "~/components/TibiaUsers";
 
 const elements = [1,2,3,4,5,6,7,8,9]
 
@@ -20,6 +21,10 @@ export default function Home() {
             </Grid>
           ))}
         </Grid>
+      </Container>
+
+      <Container>
+        <TibiaUsers />
       </Container>
     </main>
   );

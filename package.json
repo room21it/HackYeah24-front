@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen:api": "openapi-typescript https://api.tibiastalker.pl/swagger/v1/swagger.json -o ./src/types/tibiastalker/index.d.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -25,6 +26,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "openapi-fetch": "^0.12.0",
+    "openapi-typescript": "^7.4.0",
     "typescript": "^5"
   }
 }
