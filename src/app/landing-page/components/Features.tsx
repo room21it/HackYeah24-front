@@ -100,8 +100,8 @@ export default function Features() {
               sx={{
                 backgroundImage: (theme) =>
                   theme.palette.mode === 'light'
-                    ? items[selectedItemIndex].imageLight
-                    : items[selectedItemIndex].imageDark,
+                    ? selectedFeature?.imageLight
+                    : selectedFeature?.imageDark,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: 280,
@@ -109,10 +109,10 @@ export default function Features() {
             />
             <Box sx={{ px: 2, pb: 2 }}>
               <Typography color="text.primary" variant="body2" fontWeight="bold">
-                {selectedFeature.title}
+                {selectedFeature?.title}
               </Typography>
               <Typography color="text.secondary" variant="body2" sx={{ my: 0.5 }}>
-                {selectedFeature.description}
+                {selectedFeature?.description}
               </Typography>
               <Link
                 color="primary"
@@ -254,8 +254,8 @@ export default function Features() {
                 backgroundSize: 'contain',
                 backgroundImage: (theme) =>
                   theme.palette.mode === 'light'
-                    ? items[selectedItemIndex].imageLight
-                    : items[selectedItemIndex].imageDark,
+                    ? selectedFeature?.imageLight
+                    : selectedFeature?.imageDark,
               }}
             />
           </Card>
