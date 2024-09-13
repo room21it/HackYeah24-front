@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from "next";
 import theme from '~/theme';
 import AppBarNavigation from '~/components/AppBarNavigation';
 import Footer from '~/components/Footer';
+import TanstackQueryProvider from '~/lib/TanstackQueryProvider';
 
 export const metadata: Metadata = {
   title: "HackYeah 24",
@@ -30,12 +31,14 @@ export default function RootLayout({
           <CssVarsProvider theme={theme} defaultMode="dark">
             <InitColorSchemeScript defaultMode="dark" />
             <CssBaseline />
-            
-            <AppBarNavigation />
 
-              {children}
+            <TanstackQueryProvider>
+              <AppBarNavigation />
 
-            <Footer />
+                {children}
+
+              <Footer />
+            </TanstackQueryProvider>
           </CssVarsProvider>
         </AppRouterCacheProvider>
       </body>
