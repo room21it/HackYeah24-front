@@ -9,17 +9,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import useWeatherForecast from "~/hooks/useWeatherForecast";
+import Skeleton from "@mui/material/Skeleton";
+import Alert from "@mui/material/Alert";
 
 export const WeatherForecast = () => {
   const { data: weatherForecast, isLoading, isError } = useWeatherForecast();
-
-  if (isLoading) {
-    return <Paper>loading...</Paper>;
-  }
-
-  if (isError || !weatherForecast || !weatherForecast?.data) {
-    return <Paper>can&apos;t find</Paper>;
-  }
 
   return (
     <TableContainer component={Paper}>
@@ -33,18 +27,37 @@ export const WeatherForecast = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {weatherForecast.data.map((row) => (
-            <TableRow key={row.date} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {row.date}
-              </TableCell>
-              <TableCell align="right">{row.summary}</TableCell>
-              <TableCell align="right">{row.temperatureC}</TableCell>
-              <TableCell align="right">{row.temperatureF}</TableCell>
-            </TableRow>
-          ))}
+          {isLoading &&
+            Array.from(new Array(5)).map((_, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <Skeleton />
+                </TableCell>
+                <TableCell>
+                  <Skeleton />
+                </TableCell>
+                <TableCell>
+                  <Skeleton />
+                </TableCell>
+                <TableCell>
+                  <Skeleton />
+                </TableCell>
+              </TableRow>
+            ))}
+          {!isLoading &&
+            (weatherForecast?.data || []).map((row) => (
+              <TableRow key={row.date} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {row.date}
+                </TableCell>
+                <TableCell align="right">{row.summary}</TableCell>
+                <TableCell align="right">{row.temperatureC}</TableCell>
+                <TableCell align="right">{row.temperatureF}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
+      {isError && <Alert severity="error">Soothing go wrong. Pleas, back soon and try again.</Alert>}
     </TableContainer>
   );
 };
