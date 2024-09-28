@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FormEventHandler } from "react";
+import useFullPageLoader from "~/hooks/useFullPageLoader";
 
 type Props = {
   index: number;
@@ -13,8 +14,16 @@ type Props = {
 
 export const FormForLink = ({ index, value }: Props) => {
   const { tabProps, isHidden } = useTabPanel({ index, value });
+  const { setLoading } = useFullPageLoader();
 
-  const { mutate, isPending } = useStepsFromLink();
+  const { mutate, isPending } = useStepsFromLink({
+    onPending: () => {
+      !!setLoading && setLoading(true);
+    },
+    onSuccess: () => {
+      !!setLoading && setLoading(false);
+    },
+  });
 
   const getSteps: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();

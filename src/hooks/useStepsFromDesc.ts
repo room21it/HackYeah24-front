@@ -2,12 +2,19 @@ import mainClient from "~/api/mainClient";
 
 import { useMutation } from "@tanstack/react-query";
 
-const useStepsFromDesc = () => {
+type StepsFromDesc = {
+  onSuccess?: () => void;
+  onPending?: () => void;
+};
+
+const useStepsFromDesc = ({ onSuccess = undefined, onPending = undefined }: StepsFromDesc) => {
   return useMutation({
     mutationFn: () => {
       return mockGetSteps();
       // return mainClient.GET("/WeatherForecast");
     },
+    onSuccess,
+    onMutate: onPending,
   });
 };
 

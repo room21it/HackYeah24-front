@@ -12,7 +12,6 @@ export const FormRecipesScraps = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log({ newValue });
     setValue(newValue);
   };
 

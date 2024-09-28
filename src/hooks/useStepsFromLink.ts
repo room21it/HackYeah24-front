@@ -6,12 +6,19 @@ export const characterKeys = {
   detail: () => ["weatherForecast"],
 };
 
-const useStepsFromLink = () => {
+type StepsFromLink = {
+  onSuccess?: () => void;
+  onPending?: () => void;
+};
+
+const useStepsFromLink = ({ onSuccess = undefined, onPending = undefined }: StepsFromLink) => {
   return useMutation({
     mutationFn: () => {
       return mockGetSteps();
       // return mainClient.GET("/WeatherForecast");
     },
+    onSuccess,
+    onMutate: onPending,
   });
 };
 
