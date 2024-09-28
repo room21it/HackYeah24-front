@@ -300,6 +300,163 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/RecipeControllers/addbylink": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: {
+                    link?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/RecipeControllers/addbytext": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: {
+                    text?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/RecipeControllers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Recipe"];
+                        "application/json": components["schemas"]["Recipe"];
+                        "text/json": components["schemas"]["Recipe"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/RecipeControllers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    allergens?: components["schemas"]["EAllergenType"][];
+                    searchPhrase?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["RecipeListRow"][];
+                        "application/json": components["schemas"]["RecipeListRow"][];
+                        "text/json": components["schemas"]["RecipeListRow"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/WeatherForecast": {
         parameters: {
             query?: never;
@@ -345,13 +502,75 @@ export interface components {
             /** Format: int32 */
             id?: number;
         };
+        Allergen: {
+            /** Format: uuid */
+            id?: string;
+            allergenType?: components["schemas"]["EAllergenType"];
+            ingredients?: components["schemas"]["Ingredient"][] | null;
+        };
+        CookingStep: {
+            /** Format: uuid */
+            id?: string;
+            title?: string | null;
+            startCondition?: components["schemas"]["StartStepCondition"];
+            /** Format: int32 */
+            duration?: number;
+        };
+        /** Format: int32 */
+        EAllergenType: number;
         GetUserTokenQuery: {
             userName?: string | null;
             password?: string | null;
         };
+        Ingredient: {
+            /** Format: uuid */
+            id?: string;
+            name?: string | null;
+            isAllergen?: boolean;
+        };
+        MacroElements: {
+            /** Format: uuid */
+            id?: string;
+            protein?: components["schemas"]["MacroValues"];
+            carbohydrate?: components["schemas"]["MacroValues"];
+            fat?: components["schemas"]["MacroValues"];
+        };
+        MacroValues: {
+            /** Format: uuid */
+            id?: string;
+            /** Format: int32 */
+            quantityPerGram?: number;
+        };
+        Nutriens: {
+            /** Format: uuid */
+            id?: string;
+            /** Format: int32 */
+            calories?: number;
+            macroElements?: components["schemas"]["MacroElements"];
+        };
+        Recipe: {
+            /** Format: uuid */
+            id?: string;
+            name?: string | null;
+            nutriens?: components["schemas"]["Nutriens"];
+            ingredients?: components["schemas"]["Ingredient"][] | null;
+            steps?: components["schemas"]["CookingStep"][] | null;
+            allergens?: components["schemas"]["Allergen"][] | null;
+        };
+        RecipeListRow: {
+            /** Format: uuid */
+            id?: string;
+            name?: string | null;
+            allergens?: components["schemas"]["EAllergenType"][] | null;
+        };
         RegisterUserCommand: {
             userName?: string | null;
             password?: string | null;
+        };
+        StartStepCondition: {
+            /** Format: uuid */
+            id?: string;
+            prerequisiteStepIds?: number[] | null;
         };
         WeatherForecast: {
             /** Format: date */
