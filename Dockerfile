@@ -1,3 +1,5 @@
+ARG SH_VALUE
+
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
@@ -37,6 +39,9 @@ RUN \
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
+
+ARG SH_VALUE
+ENV SH_VALUE=${SH_VALUE}
 
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
