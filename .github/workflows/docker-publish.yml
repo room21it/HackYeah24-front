@@ -77,7 +77,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            SSH_VALUE={{ github.sha }}
+            SH_VALUE=${{ github.sha }}
 
       # Sign the resulting Docker image
       # This will only write to the public Rekor transparency log when the Docker

@@ -9,7 +9,7 @@ const style: CSSProperties = {
 };
 
 export const DisplayRevision = () => {
-  const fullCommitSh = process.env.SSH_VALUE || "";
+  const fullCommitSh = process.env.SH_VALUE || "";
 
   return <div style={style}>rev. {fullCommitSh.slice(0, 6)}</div>;
 };
