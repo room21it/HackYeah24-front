@@ -35,7 +35,7 @@ export const FullPageLoader = ({ children }: Props) => {
         }}
       >
         <CircularProgress size="4em" />
-        Czekaj!
+        Analizuje...
       </Box>
       {children}
     </LoaderContext.Provider>

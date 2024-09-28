@@ -1,6 +1,7 @@
 import mainClient from "~/api/mainClient";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { recipeKeys } from "./useRecipe";
 
 type StepsFromDesc = {
   onSuccess?: () => void;
@@ -8,12 +9,20 @@ type StepsFromDesc = {
 };
 
 const useStepsFromDesc = ({ onSuccess = undefined, onPending = undefined }: StepsFromDesc) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: () => {
-      return mockGetSteps();
-      // return mainClient.GET("/WeatherForecast");
+    mutationFn: async () => {
+      // const response = await mainClient.POST("/RecipeControllers/addbytext");
+
+      // if (response.data) {
+      return await mockGetSteps();
+      // }
     },
-    onSuccess,
+    onSuccess: (data) => {
+      queryClient.setQueryData(recipeKeys.current(), data);
+      onSuccess && onSuccess();
+    },
     onMutate: onPending,
   });
 };
@@ -150,6 +159,6 @@ async function mockGetSteps() {
         ],
         total_time: "3 godziny 40 minut (łącznie z chłodzeniem)",
       });
-    }, 500);
+    }, 10000);
   });
 }

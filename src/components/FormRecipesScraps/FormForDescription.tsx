@@ -1,11 +1,14 @@
+"use client";
+
 import Box from "@mui/material/Box";
 import { useTabPanel } from "./useTabPanel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useStepsFromDesc from "~/hooks/useStepsFromDesc";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect } from "react";
 import useFullPageLoader from "~/hooks/useFullPageLoader";
+import { useRouter } from "next/navigation";
+import { FormEventHandler } from "react";
 
 type Props = {
   index: number;
@@ -13,8 +16,9 @@ type Props = {
 };
 
 export const FormForDescription = ({ index, value }: Props) => {
+  const { push } = useRouter();
   const { tabProps, isHidden } = useTabPanel({ index, value });
-  const { isLoading, setLoading } = useFullPageLoader();
+  const { setLoading } = useFullPageLoader();
 
   const { mutate, isPending } = useStepsFromDesc({
     onPending: () => {
@@ -22,10 +26,12 @@ export const FormForDescription = ({ index, value }: Props) => {
     },
     onSuccess: () => {
       !!setLoading && setLoading(false);
+      push("/recipe");
     },
   });
 
-  const getSteps = () => {
+  const getSteps: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
     mutate();
   };
 
