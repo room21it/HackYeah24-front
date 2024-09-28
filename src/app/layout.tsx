@@ -1,13 +1,14 @@
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import CssBaseline from '@mui/material/CssBaseline';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import CssBaseline from "@mui/material/CssBaseline";
 import type { Metadata, Viewport } from "next";
 
-import theme from '~/theme';
-import AppBarNavigation from '~/components/AppBarNavigation';
-import Footer from '~/components/Footer';
-import TanstackQueryProvider from '~/lib/TanstackQueryProvider';
+import theme from "~/theme";
+import AppBarNavigation from "~/components/AppBarNavigation";
+import Footer from "~/components/Footer";
+import TanstackQueryProvider from "~/lib/TanstackQueryProvider";
+import { DisplayRevision } from "~/components/DisplayRevision";
 
 export const metadata: Metadata = {
   title: "HackYeah 24",
@@ -15,9 +16,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
-}
+};
 
 export default function RootLayout({
   children,
@@ -35,12 +36,13 @@ export default function RootLayout({
             <TanstackQueryProvider>
               <AppBarNavigation />
 
-                {children}
+              {children}
 
               <Footer />
             </TanstackQueryProvider>
           </CssVarsProvider>
         </AppRouterCacheProvider>
+        <DisplayRevision />
       </body>
     </html>
   );
