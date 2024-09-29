@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import { FormEventHandler } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import useFullPageLoader from "~/hooks/useFullPageLoader";
 import { useRouter } from "next/navigation";
 
@@ -19,6 +19,11 @@ export const FormForLink = ({ index, value }: Props) => {
   const { push } = useRouter();
   const { tabProps, isHidden } = useTabPanel({ index, value });
   const { setLoading } = useFullPageLoader();
+  const [link, setLink] = useState("");
+
+  const updateLink: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setLink(event.target.value);
+  };
 
   const { mutate, isPending } = useStepsFromLink({
     onPending: () => {
@@ -31,7 +36,7 @@ export const FormForLink = ({ index, value }: Props) => {
 
   const getSteps: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    mutate();
+    mutate(link);
   };
 
   if (isHidden) {
@@ -56,6 +61,8 @@ export const FormForLink = ({ index, value }: Props) => {
         placeholder="https://..."
         fullWidth
         disabled={isPending}
+        value={link}
+        onChange={updateLink}
         sx={{
           maxWidth: 600,
         }}

@@ -311,14 +311,18 @@ export interface paths {
         put?: never;
         post: {
             parameters: {
-                query?: {
-                    link?: string;
-                };
+                query?: never;
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody?: {
+                content: {
+                    "application/json": string;
+                    "text/json": string;
+                    "application/*+json": string;
+                };
+            };
             responses: {
                 /** @description Success */
                 200: {
@@ -350,14 +354,18 @@ export interface paths {
         put?: never;
         post: {
             parameters: {
-                query?: {
-                    text?: string;
-                };
+                query?: never;
                 header?: never;
                 path?: never;
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody?: {
+                content: {
+                    "application/json": string;
+                    "text/json": string;
+                    "application/*+json": string;
+                };
+            };
             responses: {
                 /** @description Success */
                 200: {
@@ -559,6 +567,7 @@ export interface components {
             /** Format: int32 */
             duration?: number;
             cuisine?: string | null;
+            thumbnailUrl?: string | null;
             nutriens?: components["schemas"]["Nutriens"];
             ingredients?: components["schemas"]["Ingredient"][] | null;
             steps?: components["schemas"]["CookingStep"][] | null;
@@ -568,6 +577,10 @@ export interface components {
             /** Format: uuid */
             id?: string;
             name?: string | null;
+            cuisine?: string | null;
+            thumbnailUrl?: string | null;
+            /** Format: int32 */
+            duration?: number;
             allergens?: components["schemas"]["EAllergenType"][] | null;
         };
         RegisterUserCommand: {

@@ -8,6 +8,6 @@ if (!baseUrl) {
   throw new Error("Base url are empty string or undefined. Fix it!");
 }
 
-const client = createClient<paths>({ baseUrl: baseUrl });
+const client = createClient<paths>({ baseUrl: baseUrl, headers: new Headers({ "Content-Type": "text/json" }) });
 
 export default client;

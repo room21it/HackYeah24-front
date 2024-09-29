@@ -9,12 +9,16 @@ type StepsFromLink = {
 
 const useStepsFromLink = ({ onSuccess = undefined, onPending = undefined }: StepsFromLink) => {
   return useMutation({
-    mutationFn: async () => {
-      // const response = await mainClient.POST("/RecipeControllers/addbylink");
+    mutationFn: async (link: string) => {
+      const response = await mainClient.POST("/Recipes/addbylink", {
+        body: link,
+      });
 
-      // if (response.data) {
-      return "38b14ffc-f72d-4b80-a975-14953f080ec0";
-      // }
+      if (response.data) {
+        return response.data;
+      } else {
+        return Promise.reject();
+      }
     },
     onSuccess: onSuccess,
     onMutate: onPending,

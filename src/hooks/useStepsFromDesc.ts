@@ -9,12 +9,16 @@ type StepsFromDesc = {
 
 const useStepsFromDesc = ({ onSuccess = undefined, onPending = undefined }: StepsFromDesc) => {
   return useMutation({
-    mutationFn: async () => {
-      // const response = await mainClient.POST("/RecipeControllers/addbytext");
+    mutationFn: async (text: string) => {
+      const response = await mainClient.POST("/Recipes/addbytext", {
+        body: text,
+      });
 
-      // if (response.data) {
-      return "38b14ffc-f72d-4b80-a975-14953f080ec0";
-      // }
+      if (response.data) {
+        return response.data;
+      } else {
+        return Promise.reject();
+      }
     },
     onSuccess: onSuccess,
     onMutate: onPending,

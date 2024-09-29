@@ -8,7 +8,7 @@ import useStepsFromDesc from "~/hooks/useStepsFromDesc";
 import CircularProgress from "@mui/material/CircularProgress";
 import useFullPageLoader from "~/hooks/useFullPageLoader";
 import { useRouter } from "next/navigation";
-import { FormEventHandler } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
 type Props = {
   index: number;
@@ -19,6 +19,11 @@ export const FormForDescription = ({ index, value }: Props) => {
   const { push } = useRouter();
   const { tabProps, isHidden } = useTabPanel({ index, value });
   const { setLoading } = useFullPageLoader();
+  const [text, setText] = useState("");
+
+  const updateText: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setText(event.target.value);
+  };
 
   const { mutate, isPending } = useStepsFromDesc({
     onPending: () => {
@@ -31,7 +36,7 @@ export const FormForDescription = ({ index, value }: Props) => {
 
   const getSteps: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    mutate();
+    mutate(text);
   };
 
   if (isHidden) {
@@ -58,6 +63,8 @@ export const FormForDescription = ({ index, value }: Props) => {
         disabled={isPending}
         multiline
         rows={4}
+        value={text}
+        onChange={updateText}
         sx={{
           maxWidth: 600,
         }}
