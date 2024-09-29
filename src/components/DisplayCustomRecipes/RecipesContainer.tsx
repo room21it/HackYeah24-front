@@ -9,11 +9,7 @@ import { Link } from "@mui/material";
 import useRecipeSearch from "~/hooks/useRecipeSearch";
 import { Filters } from "./constants";
 
-export const RecipesContainer = ({
-  allergens,
-}: {
-  allergens: Filters[] | null;
-}) => {
+export const RecipesContainer = ({ allergens }: { allergens: Filters[] | null }) => {
   const { data: recipes } = useRecipeSearch({
     allergens: allergens?.map((allergen) => allergen.id),
   });
@@ -27,6 +23,7 @@ export const RecipesContainer = ({
       {recipes?.map((recipe) => {
         return (
           <Card
+            key={recipe.id}
             sx={{
               display: "flex",
               height: "120px",
@@ -36,18 +33,11 @@ export const RecipesContainer = ({
             }}
           >
             {recipe?.thumbnailUrl ? (
-              <CardMedia
-                component="img"
-                sx={{ width: "30%", objectFit: "contain" }}
-                image={recipe?.thumbnailUrl}
-                alt="meal-image"
-              />
+              <CardMedia component="img" sx={{ width: "30%", objectFit: "contain" }} image={recipe?.thumbnailUrl} alt="meal-image" />
             ) : (
               <Box sx={{ width: "30%" }} />
             )}
-            <Box
-              sx={{ display: "flex", flexDirection: "column", width: "70%" }}
-            >
+            <Box sx={{ display: "flex", flexDirection: "column", width: "70%" }}>
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <Link href={`/recipe/${recipe?.id}`} underline="none">
                   <Typography

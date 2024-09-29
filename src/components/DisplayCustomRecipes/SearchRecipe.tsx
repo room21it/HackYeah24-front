@@ -3,19 +3,13 @@ import { Autocomplete, Box, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { filterBy, Filters } from "./constants";
 import { ExcludedAllergenChip } from "./ExcludedAllergenChip";
-import useRecipeSearch from "~/hooks/useRecipeSearch";
 import { RecipesContainer } from "./RecipesContainer";
 
 export const SearchRecipe = () => {
-  const [excludedAllergens, setExcludedAllergens] = useState<null | Filters[]>(
-    null
-  );
+  const [excludedAllergens, setExcludedAllergens] = useState<null | Filters[]>(null);
 
   const removeExcludedAllergen = (allergen: Filters["name"]) => {
-    excludedAllergens &&
-      setExcludedAllergens(
-        [...excludedAllergens].filter((item) => allergen !== item.name)
-      );
+    excludedAllergens && setExcludedAllergens([...excludedAllergens].filter((item) => allergen !== item.name));
   };
 
   return (
@@ -28,13 +22,7 @@ export const SearchRecipe = () => {
         onChange={(event, value) => setExcludedAllergens(value)}
         value={excludedAllergens || []}
         filterSelectedOptions
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Filtruj listę przepisów"
-            placeholder="Wybierz alergen"
-          />
-        )}
+        renderInput={(params) => <TextField {...params} label="Filtruj listę przepisów" placeholder="Wybierz alergen" />}
         renderTags={() => null}
         sx={{ marginBottom: "6px" }}
       />
@@ -48,12 +36,7 @@ export const SearchRecipe = () => {
         }}
       >
         {excludedAllergens?.map((allergen) => {
-          return (
-            <ExcludedAllergenChip
-              name={allergen.name}
-              removeExcludedAllergen={removeExcludedAllergen}
-            />
-          );
+          return <ExcludedAllergenChip key={allergen.id} name={allergen.name} removeExcludedAllergen={removeExcludedAllergen} />;
         })}
       </Stack>
       <RecipesContainer allergens={excludedAllergens} />
