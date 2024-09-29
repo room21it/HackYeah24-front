@@ -57,7 +57,7 @@ export default function Select({ allergens }: { allergens: Allergens[] }) {
       }}
       renderInput={(params) => {
         return (
-          <TextField {...params} label="Alergeny" placeholder="Dodaj alergen" />
+          <TextField {...params} label="Alergeny" placeholder="Dodaj alergen" sx={{backgroundColor: "rgba(0, 0, 0, .06)"}} />
         );
       }}
     />

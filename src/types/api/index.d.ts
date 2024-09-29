@@ -82,82 +82,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Test": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: {
-                    test?: string;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/Car": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: {
-            parameters: {
-                query?: {
-                    id?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["AddRenaultCommand"];
-                    "text/json": components["schemas"]["AddRenaultCommand"];
-                    "application/*+json": components["schemas"]["AddRenaultCommand"];
-                };
-            };
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/Errors/InnerExceptionCodes": {
         parameters: {
             query?: never;
@@ -465,51 +389,10 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/WeatherForecast": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Success */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["WeatherForecast"][];
-                        "application/json": components["schemas"]["WeatherForecast"][];
-                        "text/json": components["schemas"]["WeatherForecast"][];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        AddRenaultCommand: {
-            /** Format: int32 */
-            id?: number;
-        };
         Allergen: {
             /** Format: uuid */
             id?: string;
@@ -568,6 +451,8 @@ export interface components {
             duration?: number;
             cuisine?: string | null;
             thumbnailUrl?: string | null;
+            /** Format: int32 */
+            numberOfPortions?: number;
             nutriens?: components["schemas"]["Nutriens"];
             ingredients?: components["schemas"]["Ingredient"][] | null;
             steps?: components["schemas"]["CookingStep"][] | null;
@@ -591,17 +476,6 @@ export interface components {
             /** Format: uuid */
             id?: string;
             prerequisiteStepIds?: string[] | null;
-        };
-        WeatherForecast: {
-            /** Format: date */
-            date?: string;
-            /** Format: int32 */
-            temperatureC?: number;
-            /** Format: int32 */
-            readonly temperatureF?: number;
-            summary?: string | null;
-            /** Format: int32 */
-            myProperty?: number;
         };
     };
     responses: never;
