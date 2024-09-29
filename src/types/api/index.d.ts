@@ -300,7 +300,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/RecipeControllers/addbylink": {
+    "/Recipes/addbylink": {
         parameters: {
             query?: never;
             header?: never;
@@ -339,7 +339,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/RecipeControllers/addbytext": {
+    "/Recipes/addbytext": {
         parameters: {
             query?: never;
             header?: never;
@@ -378,7 +378,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/RecipeControllers/{id}": {
+    "/Recipes/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -417,7 +417,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/RecipeControllers": {
+    "/Recipes": {
         parameters: {
             query?: never;
             header?: never;
@@ -506,7 +506,6 @@ export interface components {
             /** Format: uuid */
             id?: string;
             allergenType?: components["schemas"]["EAllergenType"];
-            ingredients?: components["schemas"]["Ingredient"][] | null;
         };
         CookingStep: {
             /** Format: uuid */
@@ -515,9 +514,11 @@ export interface components {
             startCondition?: components["schemas"]["StartStepCondition"];
             /** Format: int32 */
             duration?: number;
+            /** Format: int32 */
+            order?: number;
         };
-        /** Format: int32 */
-        EAllergenType: number;
+        /** @enum {string} */
+        EAllergenType: "gluten" | "nuts" | "celery" | "crustaceans" | "egg" | "fish" | "lupin" | "milk" | "molluscs" | "mustard" | "peanuts" | "sesame" | "soya" | "sulphur";
         GetUserTokenQuery: {
             userName?: string | null;
             password?: string | null;
@@ -526,7 +527,10 @@ export interface components {
             /** Format: uuid */
             id?: string;
             name?: string | null;
-            isAllergen?: boolean;
+            /** Format: double */
+            amount?: number | null;
+            unit?: string | null;
+            allergenTypes?: components["schemas"]["EAllergenType"][] | null;
         };
         MacroElements: {
             /** Format: uuid */
@@ -538,13 +542,13 @@ export interface components {
         MacroValues: {
             /** Format: uuid */
             id?: string;
-            /** Format: int32 */
-            quantityPerGram?: number;
+            /** Format: double */
+            gramms?: number;
         };
         Nutriens: {
             /** Format: uuid */
             id?: string;
-            /** Format: int32 */
+            /** Format: double */
             calories?: number;
             macroElements?: components["schemas"]["MacroElements"];
         };
@@ -552,6 +556,9 @@ export interface components {
             /** Format: uuid */
             id?: string;
             name?: string | null;
+            /** Format: int32 */
+            duration?: number;
+            cuisine?: string | null;
             nutriens?: components["schemas"]["Nutriens"];
             ingredients?: components["schemas"]["Ingredient"][] | null;
             steps?: components["schemas"]["CookingStep"][] | null;
@@ -570,7 +577,7 @@ export interface components {
         StartStepCondition: {
             /** Format: uuid */
             id?: string;
-            prerequisiteStepIds?: number[] | null;
+            prerequisiteStepIds?: string[] | null;
         };
         WeatherForecast: {
             /** Format: date */
