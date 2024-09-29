@@ -1,8 +1,10 @@
-import { CheckBox } from "@mui/icons-material";
-import { Checkbox, FormControlLabel, List, ListItem, ListItemText } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, List, ListItem, ListItemText } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useEffect, useMemo, useState } from "react";
 import useRecipe from "~/hooks/useRecipe";
 import { useTabPanel } from "~/hooks/useTabPanel";
+
+const SHORT_LIST_ELEMENT = 3;
 
 type Props = {
   index: number;
@@ -14,7 +16,17 @@ const IngredientsPanel = ({ index, value, guid }: Props) => {
   const { tabProps, isHidden } = useTabPanel({ index, value });
   const { data: recipe } = useRecipe(guid);
 
-  console.log(recipe);
+  const fullList = useMemo(() => recipe?.ingredients || [], [recipe?.ingredients]);
+  const shortList = useMemo(() => fullList.slice(0, SHORT_LIST_ELEMENT) || [], [fullList]);
+  const howMuchTooMany = fullList.length - SHORT_LIST_ELEMENT;
+  const [isMoreElements, setIsMoreElements] = useState(howMuchTooMany > 0);
+  const showMore = () => {
+    setIsMoreElements(false);
+  };
+
+  useEffect(() => {
+    setIsMoreElements(howMuchTooMany > 0);
+  }, [howMuchTooMany]);
 
   if (isHidden) {
     return null;
@@ -23,7 +35,7 @@ const IngredientsPanel = ({ index, value, guid }: Props) => {
   return (
     <Box {...tabProps}>
       <List>
-        {recipe?.ingredients?.map((ingredients) => (
+        {(isMoreElements ? shortList : fullList).map((ingredients) => (
           <ListItem key={ingredients.id}>
             <ListItemText
               primary={<FormControlLabel control={<Checkbox />} label={`${ingredients.amount} ${ingredients.unit} ${ingredients.name}`} />}
@@ -31,6 +43,11 @@ const IngredientsPanel = ({ index, value, guid }: Props) => {
           </ListItem>
         ))}
       </List>
+      {isMoreElements && (
+        <Button size="small" onClick={showMore}>
+          Pokaz więcej ({howMuchTooMany})
+        </Button>
+      )}
     </Box>
   );
 };

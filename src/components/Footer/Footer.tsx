@@ -32,7 +32,7 @@ export const Footer = () => {
     <>
       <Divider
         sx={{
-          py: { xs: 8, sm: 10 },
+          py: { xs: 1, sm: 10 },
         }}
       />
 
