@@ -45,14 +45,14 @@ const RecipeStepsPanel = ({ index, value, guid }: Props) => {
         activeStep={activeStep}
         nextButton={
           <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
+            Następny
             <KeyboardArrowRight />
           </Button>
         }
         backButton={
           <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
             <KeyboardArrowLeft />
-            Back
+            Poprzedni
           </Button>
         }
       />
