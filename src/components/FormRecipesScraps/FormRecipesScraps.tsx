@@ -7,6 +7,7 @@ import { FormForLink } from "./FormForLink";
 import { FormForDescription } from "./FormForDescription";
 import Box from "@mui/material/Box";
 import { Divider, Typography } from "@mui/material";
+import { a11yProps } from "~/utils/a11yProps";
 
 export const FormRecipesScraps = () => {
   const [value, setValue] = useState(0);
@@ -20,7 +21,7 @@ export const FormRecipesScraps = () => {
       <Typography color="primary" variant="h5" component="h2" gutterBottom>
         Przeanalizuj przepis
       </Typography>
-      <Tabs aria-label="możesz wpisać podać link do przepisu albo wkleić opis przepisu" value={value} onChange={handleChange}>
+      <Tabs aria-label="możesz podać link do przepisu albo wkleić opis przepisu" value={value} onChange={handleChange}>
         <Tab label="LINK" {...a11yProps(0)} />
         <Tab label="TEKST" {...a11yProps(1)} />
       </Tabs>
@@ -30,10 +31,3 @@ export const FormRecipesScraps = () => {
     </Box>
   );
 };
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}

@@ -1,7 +1,7 @@
 "use client";
 
 import useStepsFromLink from "~/hooks/useStepsFromLink";
-import { useTabPanel } from "./useTabPanel";
+import { useTabPanel } from "../../hooks/useTabPanel";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -24,9 +24,8 @@ export const FormForLink = ({ index, value }: Props) => {
     onPending: () => {
       !!setLoading && setLoading(true);
     },
-    onSuccess: () => {
-      !!setLoading && setLoading(false);
-      push("/recipe");
+    onSuccess: (guid) => {
+      push(`/recipe/${guid}`, { scroll: true });
     },
   });
 

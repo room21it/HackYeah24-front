@@ -1,7 +1,7 @@
 "use client";
 
 import Box from "@mui/material/Box";
-import { useTabPanel } from "./useTabPanel";
+import { useTabPanel } from "../../hooks/useTabPanel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useStepsFromDesc from "~/hooks/useStepsFromDesc";
@@ -24,9 +24,8 @@ export const FormForDescription = ({ index, value }: Props) => {
     onPending: () => {
       !!setLoading && setLoading(true);
     },
-    onSuccess: () => {
-      !!setLoading && setLoading(false);
-      push("/recipe");
+    onSuccess: (guid) => {
+      push(`/recipe/${guid}`, { scroll: true });
     },
   });
 
