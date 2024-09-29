@@ -1,9 +1,12 @@
 import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import useRecipe from "~/hooks/useRecipe";
 import { useTabPanel } from "~/hooks/useTabPanel";
+
+import * as React from "react";
+import MobileStepper from "@mui/material/MobileStepper";
+import Button from "@mui/material/Button";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 type Props = {
   index: number;
@@ -15,19 +18,44 @@ const RecipeStepsPanel = ({ index, value, guid }: Props) => {
   const { tabProps, isHidden } = useTabPanel({ index, value });
   const { data: recipe } = useRecipe(guid);
 
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const steps = recipe?.steps || [];
+  const maxSteps = recipe?.steps?.length || 0;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   if (isHidden) {
     return null;
   }
 
   return (
-    <Box {...tabProps}>
-      <List>
-        {recipe?.allergens?.map((alergen) => (
-          <ListItem key={alergen.id}>
-            <ListItemText primary={alergen.allergenType} />
-          </ListItem>
-        ))}
-      </List>
+    <Box {...tabProps} sx={{ flexGrow: 1, maxWidth: { xs: undefined, md: 400 } }}>
+      <Box sx={{ minHeight: 255, width: "100%", p: 2, fontSize: "1.75em" }}>{steps[activeStep]?.title}</Box>
+      <MobileStepper
+        variant="text"
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        nextButton={
+          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+            Next
+            <KeyboardArrowRight />
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            <KeyboardArrowLeft />
+            Back
+          </Button>
+        }
+      />
     </Box>
   );
 };
