@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import useFullPageLoader from "~/hooks/useFullPageLoader";
 import useRecipe from "~/hooks/useRecipe";
 import { a11yProps } from "~/utils/a11yProps";
+import AllergensPanel from "./components/AllergensPanel";
+import NutriensPanel from "./components/NutriensPanel";
+import IngredientsPanel from "./components/IngredientsPanel";
 
 export default function Recipe({ params }: { params: { guid: string } }) {
   const { data: recipe, isSuccess } = useRecipe(params.guid);
@@ -32,13 +35,16 @@ export default function Recipe({ params }: { params: { guid: string } }) {
           {recipe?.name}
         </Typography>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="ALERGENY" {...a11yProps(0)} />
+          {recipe?.allergens?.length && <Tab label="ALERGENY" {...a11yProps(0)} />}
           <Tab label="MAKROSKŁADNIKI" {...a11yProps(1)} />
         </Tabs>
+        <AllergensPanel index={0} value={value} guid={params.guid} />
+        <NutriensPanel index={0} value={value} guid={params.guid} />
 
         <Tabs value={0}>
           <Tab label="SKŁADNIKI" {...a11yProps(0)} />
         </Tabs>
+        <IngredientsPanel index={0} value={0} guid={params.guid} />
       </Box>
     </Container>
   );
