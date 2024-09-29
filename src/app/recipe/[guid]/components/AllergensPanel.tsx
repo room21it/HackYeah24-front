@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import { allergensMap } from "~/app/api/allergens/allergens";
 import useRecipe from "~/hooks/useRecipe";
 import { useTabPanel } from "~/hooks/useTabPanel";
 
@@ -24,7 +25,7 @@ const AllergensPanel = ({ index, value, guid }: Props) => {
       <List>
         {recipe?.allergens?.map((alergen) => (
           <ListItem key={alergen.id}>
-            <ListItemText primary={alergen.allergenType} />
+            <ListItemText primary={allergensMap.get(alergen.allergenType as string) || alergen.allergenType} />
           </ListItem>
         ))}
       </List>
