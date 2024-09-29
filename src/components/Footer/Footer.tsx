@@ -11,18 +11,16 @@ import GitHub from "@mui/icons-material/GitHub";
 import Divider from "@mui/material/Divider";
 import { LinkList } from "./LinksList/LinkList";
 import { ORG_NAME } from "~/config/organization";
-
-const logoStyle = {
-  width: "140px",
-  height: "auto",
-};
+import Logo from "../Logo";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
-      {"Copyright © "}
-      <Link href="/">{ORG_NAME}&nbsp;</Link>
-      {new Date().getFullYear()}
+      Created by{" "}
+      <Link href="https://github.com/room21it" target="_blank">
+        {ORG_NAME}
+      </Link>{" "}
+      for <Link href="https://hackyeah.pl/pl/">HackYeah</Link> 2024
     </Typography>
   );
 }
@@ -64,15 +62,11 @@ export const Footer = () => {
           >
             <Stack direction="column" useFlexGap spacing={1} sx={{ width: { xs: "100%", sm: "60%" } }}>
               <Box>
-                <img
-                  src={"https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"}
-                  style={logoStyle}
-                  alt="logo of sitemark"
-                />
+                <Logo />
               </Box>
 
               <Box>
-                <Link color="text.secondary" href="#">
+                {/* <Link color="text.secondary" href="#">
                   Privacy Policy
                 </Link>
                 <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
@@ -80,11 +74,11 @@ export const Footer = () => {
                 </Typography>
                 <Link color="text.secondary" href="#">
                   Terms of Service
-                </Link>
+                </Link> */}
                 <Copyright />
               </Box>
 
-              <Stack
+              {/* <Stack
                 direction="row"
                 justifyContent="left"
                 spacing={1}
@@ -102,11 +96,11 @@ export const Footer = () => {
                     Backend
                   </Link>
                 </Stack>
-              </Stack>
+              </Stack> */}
             </Stack>
           </Box>
 
-          <LinkList title="Product">
+          {/* <LinkList title="Product">
             <Link color="text.secondary" href="#">
               Features
             </Link>
@@ -122,9 +116,9 @@ export const Footer = () => {
             <Link color="text.secondary" href="#">
               FAQs
             </Link>
-          </LinkList>
+          </LinkList> */}
 
-          <LinkList title="Company">
+          {/* <LinkList title="Company">
             <Link color="text.secondary" href="#">
               About us
             </Link>
@@ -134,9 +128,9 @@ export const Footer = () => {
             <Link color="text.secondary" href="#">
               Press
             </Link>
-          </LinkList>
+          </LinkList> */}
 
-          <LinkList title="Legal">
+          {/* <LinkList title="Legal">
             <Link color="text.secondary" href="#">
               Terms
             </Link>
@@ -146,7 +140,7 @@ export const Footer = () => {
             <Link color="text.secondary" href="#">
               Contact
             </Link>
-          </LinkList>
+          </LinkList> */}
         </Box>
       </Container>
     </>

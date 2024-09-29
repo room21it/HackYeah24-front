@@ -5,19 +5,10 @@ export type ChipTypes = {
   removeExcludedAllergen: (arg: string) => void;
 };
 
-export const ExcludedAllergenChip = ({
-  name,
-  removeExcludedAllergen,
-}: ChipTypes) => {
+export const ExcludedAllergenChip = ({ name, removeExcludedAllergen }: ChipTypes) => {
   const handleDelete = () => {
     removeExcludedAllergen(name);
   };
 
-  return (
-    <Chip
-      label={name}
-      onDelete={handleDelete}
-      sx={{ backgroundColor: "#FF7A00", color: "#ffffff" }}
-    />
-  );
+  return <Chip label={name} onDelete={handleDelete} sx={{ backgroundColor: "#FF7A00", color: "#ffffff" }} />;
 };

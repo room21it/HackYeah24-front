@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pl">
       <body>
         <AppRouterCacheProvider>
           <CssVarsProvider theme={theme} defaultMode="light">
