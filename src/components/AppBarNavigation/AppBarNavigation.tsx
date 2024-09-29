@@ -12,13 +12,9 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import navigationList from "./navigationList";
 import accountBtns from "./accountBtns";
+import Link from "@mui/material/Link";
 import { useColorScheme } from "@mui/material";
-
-const logoStyle = {
-  width: "140px",
-  height: "auto",
-  cursor: "pointer",
-};
+import Logo from "../Logo";
 
 function ToggleColorMode() {
   const { setMode } = useColorScheme();
@@ -67,19 +63,18 @@ export const AppBarNavigation = () => {
           })}
         >
           <Box
+            component={Link}
+            href="/"
             sx={{
               flexGrow: 1,
               display: "flex",
               alignItems: "center",
-              ml: "-18px",
+              ml: -1.5,
               px: 0,
+              textDecoration: "none",
             }}
           >
-            <img
-              src={"https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg"}
-              style={logoStyle}
-              alt="logo of sitemark"
-            />
+            <Logo />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>{navigationList}</Box>
           </Box>
           <Box
